@@ -1,11 +1,7 @@
 #include "RayCluster.h"
-#include <cmath>
-#include <ctime>
 
-RayCluster::RayCluster(int numWall, float rayPosX, float rayPosY)
+void RayCluster::Initialize(int numWall, float rayPosX, float rayPosY)
 {
-	srand(unsigned int(NULL));
-
 	m_numWalls = numWall;
 
 	Walls.push_back(new Wall(10, 10, 10, 950));
@@ -14,12 +10,12 @@ RayCluster::RayCluster(int numWall, float rayPosX, float rayPosY)
 	Walls.push_back(new Wall(10, 950, 1270, 950));
 
 	for (int i = 0; i < m_numWalls - 4; i++) {
-		Walls.push_back(new Wall(rand() % 1280, rand() % 960, rand() % 1280, rand() % 960));
+		Walls.push_back(new Wall((float)( rand() % 1280), (float) (rand() % 960), (float) (rand() % 1280), (float) (rand() % 960)));
 	}
 
 	for (float i = 0; i < 360; i += 1) {
-		float x = 1 * sin(i);
-		float y = 1 * cos(i);
+		float x = 1 * sinf(i);
+		float y = 1 * cosf(i);
 		Rays.push_back(new Ray(rayPosX, rayPosY, x, y));
 	}
 
@@ -49,7 +45,7 @@ void RayCluster::update(SDL_Renderer* renderer)
 			ReturnPoints[j] = Rays[i]->cast(*Walls[j]);
 		float temp = 0;
 		for (int j = 0; j < m_numWalls; j++) {
-			Distance[j] = sqrt(((ReturnPoints[j].x - RayX) * (ReturnPoints[j].x - RayX)) + ((ReturnPoints[j].y - RayY) * (ReturnPoints[j].y - RayY)));
+			Distance[j] = sqrtf(((ReturnPoints[j].x - RayX) * (ReturnPoints[j].x - RayX)) + ((ReturnPoints[j].y - RayY) * (ReturnPoints[j].y - RayY)));
 			if (ReturnPoints[j].x > 0 && ReturnPoints[j].y > 0) {
 				temp = Distance[j];
 			}

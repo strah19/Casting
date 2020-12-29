@@ -9,7 +9,7 @@
 class RayCluster
 {
 public:
-	RayCluster(int numWall, float rayPosX, float rayPosY);
+	void Initialize(int numWall, float rayPosX, float rayPosY);
 	~RayCluster();
 	void update(SDL_Renderer* renderer);
 	inline void position(float x, float y) { RayX = x; RayY = y; }
@@ -17,10 +17,10 @@ public:
 private:
 	std::vector<Ray*> Rays;
 	std::vector<Wall*> Walls;
-	Vector2D* ReturnPoints;
-	float* Distance;
-	int m_numWalls;
-	float RayX, RayY;
+	Vector2D* ReturnPoints = nullptr;
+	float* Distance = 0;
+	int m_numWalls = 0;
+	float RayX = 0, RayY = 0;
 };
 
 #endif // !RAY_CLUSTER

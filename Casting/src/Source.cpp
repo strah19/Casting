@@ -2,6 +2,8 @@
 #include <string>
 #include "RayCluster.h"
 #include <SDL.h>
+#include <cmath>
+#include <ctime>
 
 SDL_Renderer* Renderer;
 SDL_Window* Window;
@@ -9,7 +11,7 @@ SDL_Event Event;
 
 int WallSize = 15;
 
-RayCluster cluster(WallSize, 200, 200);
+RayCluster cluster;
 
 bool LeftClickFlag = false;
 int PreXPosition = 200, PreYPosition = 0;
@@ -37,6 +39,8 @@ bool init_sdl(std::string title, int width, int height, bool full)
 			SDL_Quit();
 			return false;
 		}
+
+		cluster.Initialize(WallSize, 200, 200);
 	}
 	return true;
 }
@@ -132,6 +136,7 @@ void draw()
 
 int main(int argc, char* argv[])
 {
+	srand(unsigned int(NULL)); 
 	init_sdl("Ray Casting", 1280, 960, false);
 	bool Running = true;
 
